@@ -11,7 +11,7 @@ if [ "$1" = "config" ]; then
 	echo "graph_title Aerospike client read per second on $namespace namespace"
 	echo "aeroreadsuccess.label Read"
 	echo "aeroreadsuccess.draw AREA"
-
+	echo "graph_category Aerospike"
 	exit 0
 fi
 
