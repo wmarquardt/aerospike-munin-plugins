@@ -1,0 +1,25 @@
+#!/bin/sh
+
+namespace=${0##*aero_client_read_}
+
+if [ "$1" = "autoconf" ]; then
+    echo yes
+    exit 0
+fi
+
+if [ "$1" = "config" ]; then
+	echo "graph_title Aerospike client read per second on $namespace namespace"
+	echo "aeroreadsuccess.label Read"
+	echo "aeroreadsuccess.draw AREA"
+
+	exit 0
+fi
+
+TOTALBEFORE=$(aql -c "stat namespace ${namespace}" | grep client_read_success | tr '"' ' ' | awk '{print$4}')
+sleep 1s
+TOTALAFTER=$(aql -c "stat namespace ${namespace}" | grep client_read_success | tr '"' ' ' | awk '{print$4}')
+
+
+PERSEC=$((TOTALAFTER - TOTALBEFORE))
+
+echo -n "aeroreadsuccess.value $PERSEC" 

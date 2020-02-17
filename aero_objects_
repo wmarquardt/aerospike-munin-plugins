@@ -1,0 +1,24 @@
+#!/bin/sh
+
+namespace=${0##*aero_objects_}
+
+if [ "$1" = "autoconf" ]; then
+    echo yes
+    exit 0
+fi
+
+if [ "$1" = "config" ]; then
+	echo "graph_title Aerospike objects on $namespace namespace"
+	echo "aerobject.label Objects"
+	echo "aerobject.draw AREA"
+	echo "aerobject.min 0"
+	echo "aerobject.type GAUGE"
+	echo "aeroevicobj.label Stat evicted objects"
+	echo "aeroevicobj.draw STACK"
+	echo "aeroevicobj.min 0"
+	echo "aeroevicobj.type COUNTER"
+	echo "graph_category Aerospike"
+	exit 0
+fi 
+echo -n "aerobject.value " && aql -c "stat namespace ${namespace}" | grep objects | head -n 1 | awk '{print$4}' | tr -d '"'
+echo -n "aeroevicobj.value " && aql -c "stat namespace ${namespace}" | grep evicted\_objects | head -n 1 | awk '{print$4}' | tr -d '"'
