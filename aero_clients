@@ -11,4 +11,5 @@ EOM
         exit 0;;
 esac
 
-echo -n "aeroclient.value " && asinfo -v statistics -l | grep client_connections |  tr '=' ' ' | awk '{print $2}'
+CLI=$(asinfo -v statistics -l | grep client_connections |  tr '=' ' ' | awk '{print $2}')
+echo "aeroclient.value $CLI"

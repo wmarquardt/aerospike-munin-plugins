@@ -22,5 +22,6 @@ fi
 FREE=$(aql -c "stat namespace $namespace"  | grep memory_free_pct | tr '"' ' ' | awk '{print$4}') 
 USED=$(( 100-$FREE ))
 
-echo -n "aerototal.value 100" 
-echo -n "aeroused.value $USED"
+echo "aerototal.value 100" 
+echo "aeroused.value $USED"
+
