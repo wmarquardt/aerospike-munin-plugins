@@ -1,0 +1,22 @@
+#!/bin/sh
+
+namespace=${0##*aero_disk_bytes_}
+
+if [ "$1" = "autoconf" ]; then
+    echo yes
+    exit 0
+fi
+
+if [ "$1" = "config" ]; then
+	echo "graph_title Aerospike disk bytes on $namespace namespace"
+	echo "aerototal.label Total"
+	echo "aerototal.draw AREA"
+	echo "aerototal.min 0"
+	echo "aeroused.label Used"
+	echo "aeroused.draw AREA"
+	echo "aeroused.min 0"
+	echo "graph_category Aerospike"
+	exit 0
+fi 
+echo -n "aerototal.value " && aql -c "stat namespace $namespace" | grep device_total_bytes | tr '"' ' ' | awk '{print$4}' 
+echo -n "aeroused.value " && aql -c aql -c "stat namespace $namespace" | grep device_used_bytes | tr '"' ' ' | awk '{print$4}'
