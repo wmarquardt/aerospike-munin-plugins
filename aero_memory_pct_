@@ -1,0 +1,26 @@
+#!/bin/sh
+
+namespace=${0##*aero_memory_pct_}
+
+if [ "$1" = "autoconf" ]; then
+    echo yes
+    exit 0
+fi
+
+if [ "$1" = "config" ]; then
+	echo "graph_title Aerospike memory use  on $namespace namespace"
+	echo "aerototal.label Available memory"
+	echo "aerototal.draw LINE"
+	echo "aerototal.min 0"
+	echo "aeroused.label % Memory used"
+	echo "aeroused.draw LINE"
+	echo "aeroused.min 0"
+	echo "graph_category Aerospike"
+	exit 0
+fi
+
+FREE=$(aql -c "stat namespace $namespace"  | grep memory_free_pct | tr '"' ' ' | awk '{print$4}') 
+USED=$(( 100-$FREE ))
+
+echo -n "aerototal.value 100" 
+echo -n "aeroused.value $USED"
