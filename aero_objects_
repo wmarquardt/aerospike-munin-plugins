@@ -13,7 +13,7 @@ if [ "$1" = "config" ]; then
 	echo "aerobject.draw AREA"
 	echo "aerobject.min 0"
 	echo "aerobject.type GAUGE"
-	echo "aeroevicobj.label Stat evicted objects"
+	echo "aeroevicobj.label Evicted objects"
 	echo "aeroevicobj.draw STACK"
 	echo "aeroevicobj.min 0"
 	echo "aeroevicobj.type COUNTER"
