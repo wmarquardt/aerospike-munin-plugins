@@ -1,15 +1,18 @@
 #!/bin/sh
 
-case $1 in
-   config)
-        cat <<'EOM'
-graph_title Aerospike client connections
-graph_vlabel Number of connections
-aeroclient.label Clients
-graph_category Aerospike
-EOM
-        exit 0;;
-esac
+if [ "$1" = "autoconf" ]; then
+    echo yes
+    exit 0
+fi
+
+if [ "$1" = "config" ]; then
+    echo "graph_title Aerospike client connections"
+    echo "graph_vlabel Number of connections"
+    echo "aeroclient.label Clients"
+    echo "graph_category Aerospike"
+    exit 0 
+fi
+
 
 CLI=$(asinfo -v statistics -l | grep client_connections |  tr '=' ' ' | awk '{print $2}')
 echo "aeroclient.value $CLI"
