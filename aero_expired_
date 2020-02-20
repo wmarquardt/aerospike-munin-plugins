@@ -9,10 +9,9 @@ fi
 
 if [ "$1" = "config" ]; then
 	echo "graph_title Aerospike expired objects on $namespace namespace"
-	echo "aeroexpired.label Objects"
+	echo "aeroexpired.label Expired objects"
 	echo "aeroexpired.draw AREA"
 	echo "aeroexpired.min 0"
-	echo "aeroexpired.type STACK"
 	echo "graph_category Aerospike"
 	exit 0
 fi 
