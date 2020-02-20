@@ -7,8 +7,9 @@ fi
 
 if [ "$1" = "config" ]; then
     echo "graph_title Aerospike client connections"
-    echo "graph_vlabel Number of connections"
     echo "aeroclient.label Clients"
+    echo "aeroclient.draw LINE"
+    echo "aeroclient.min 0"
     echo "graph_category Aerospike"
     exit 0 
 fi
